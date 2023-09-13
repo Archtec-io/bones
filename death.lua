@@ -141,19 +141,24 @@ minetest.register_on_dieplayer(function(player)
 		log_death(pos, name, "keep")
 		return
 	end
+	-- Check if it's possible to place bones
+	local bones_pos
+	if bones.mode == "bones" then
+		bones_pos = find_replaceable_pos(pos)
+	end
+	-- Keep items if no pos is found and drops are disabled
+	if bones.fallback_mode == true and not bones_pos then
+		log_death(pos, name, "keep")
+		return
+	end
 	-- Check if player has items, do nothing if they don't
 	local items = get_all_items(player)
 	if #items == 0 then
 		log_death(pos, name, "none")
 		return
 	end
-	-- Check if it's possible to place bones
-	local bones_pos
-	if bones.mode == "bones" then
-		bones_pos = find_replaceable_pos(pos)
-	end
 	-- Drop items on the ground
-	if bones.mode == "drop" or not bones_pos then
+	if bones.mode == "drop" or (bones.fallback_mode == false and not bones_pos) then
 		for _,stack in pairs(items) do
 			drop_item(pos, stack)
 		end
