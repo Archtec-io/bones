@@ -1,14 +1,11 @@
 unused_args = false
 
 globals = {
-    "minetest",
+	"core",
 	"bones",
 }
 
 read_globals = {
-	-- Builtin
 	"vector",
-	
-	-- Mod Deps
 	"armor",
 }
