@@ -87,7 +87,7 @@ core.register_entity("bones:entity", {
 		end
 		local pos = self.object:get_pos()
 		if bones.pickup and player:get_player_control().sneak then
-			if bones.pickup_bones(pos, self.items, self.owner, player) then
+			if bones.pickup_bones(pos, self.items, S("@1's bones", self.owner), player) then
 				self.object:remove()
 			end
 			return

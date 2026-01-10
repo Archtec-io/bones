@@ -40,7 +40,8 @@ core.register_node("bones:bones", {
 	end,
 	on_punch = function(pos, node, player)
 		local meta = core.get_meta(pos)
-		if not meta:get("infotext") then
+		local infotext = meta:get("infotext")
+		if not infotext then
 			return  -- Ignore empty (decorative) bones.
 		end
 		local name = player:get_player_name()
@@ -52,7 +53,10 @@ core.register_node("bones:bones", {
 		local inv = meta:get_inventory()
 		local items = inv:get_lists()
 		if bones.pickup and player:get_player_control().sneak then
-			if bones.pickup_bones(pos, items, owner, player) then
+			if owner ~= "" then
+				infotext = S("@1's bones", owner)
+			end
+			if bones.pickup_bones(pos, items, infotext, player) then
 				remove_node(pos, meta)
 			end
 			return
