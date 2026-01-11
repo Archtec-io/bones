@@ -59,7 +59,7 @@ function bones.collect_bones(pos, player, owner, items, punched)
 	return false
 end
 
-function bones.pickup_bones(pos, items, owner, player)
+function bones.pickup_bones(pos, items, infotext, player)
 	-- Pick up bones with items stored inside
 	local name = player:get_player_name()
 	local player_inv = player:get_inventory()
@@ -82,7 +82,7 @@ function bones.pickup_bones(pos, items, owner, player)
 	local stack = ItemStack("bones:bones")
 	local meta = stack:get_meta()
 	meta:set_string("items", items)
-	meta:set_string("description", S("@1's bones", owner))
+	meta:set_string("description", infotext)
 	player_inv:add_item("main", stack)
 	core.sound_play("bones_dug", {gain = 0.8}, true)
 	core.log("action", name.." picks up bones at "..core.pos_to_string(pos))
