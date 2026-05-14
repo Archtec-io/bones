@@ -49,13 +49,19 @@ function bones.collect_bones(pos, player, owner, items, punched)
 		end
 		if owner ~= name then
 			core.chat_send_player(name, S("You collected @1's bones at @2.", owner, pos_str))
+			core.log("action", name.." removes "..owner.."'s bones at "..pos_str)
+		else
+			core.log("action", name.." removes their bones at "..pos_str)
 		end
-		core.log("action", name.." removes bones at "..pos_str)
 		core.sound_play("bones_dug", {gain = 0.8}, true)
 		return true
 	end
 	-- Log the bone-taking
-	core.log("action", name.." takes items from bones at "..pos_str)
+	if owner ~= name then
+		core.log("action", name.." takes items from "..owner.."'s bones at "..pos_str)
+	else
+		core.log("action", name.." takes items from their bones at "..pos_str)
+	end
 	return false
 end
 
