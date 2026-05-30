@@ -53,7 +53,7 @@ function bones.collect_bones(pos, player, owner, items, punched)
 		else
 			core.log("action", name.." removes their bones at "..pos_str)
 		end
-		core.sound_play("bones_dug", {gain = 0.8}, true)
+		core.sound_play("bones_dug", {pos = pos, gain = 0.8}, true)
 		return true
 	end
 	-- Log the bone-taking
@@ -90,7 +90,7 @@ function bones.pickup_bones(pos, items, infotext, player)
 	meta:set_string("items", items)
 	meta:set_string("description", infotext)
 	player_inv:add_item("main", stack)
-	core.sound_play("bones_dug", {gain = 0.8}, true)
+	core.sound_play("bones_dug", {pos = pos, gain = 0.8}, true)
 	core.log("action", name.." picks up bones at "..core.pos_to_string(pos))
 	return true
 end
